@@ -1,6 +1,6 @@
 {
-  "name": "CSE B Code Vault",
-  "description": "A simple dark mode app to store and copy C, C++, and Python code snippets.",
+  "name": "Ysh.OS",
+  "description": "A premium Apple OS designed Code Vault for CSE B.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
