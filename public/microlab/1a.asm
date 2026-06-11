@@ -1,4 +1,5 @@
-        AREA    reg, CODE, READONLY
+; ALP for data transfer operations
+AREA    reg, CODE, READONLY
         ENTRY
 
         MOV     R0, #0x56          ; Move immediate number to R0
