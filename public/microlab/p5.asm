@@ -1,31 +1,36 @@
-MOV R7,#2
-LDR R6,=LOOKUP
+; ALP to count the number of ones and zeros in two consecutive memory locations. 
+        AREA    BITCOUNT, CODE, READONLY
+        ENTRY
 
-LOOP
-MOV R1,#32
-LDR R0,[R6]
+        MOV     R7, #2              ; Counter for 2 numbers
+        LDR     R6, =LOOKUP         ; Load starting address of lookup table
 
-NEXTBIT
-MOVS R0,R0,ROR #1
-BHI ONES
+        MOV     R2, #0              ; Count of 1s
+        MOV     R3, #0              ; Count of 0s
 
-ZEROS
-ADD R3,R3,#1
-B REPEAT
+LOOP    MOV     R1, #32             ; 32 bits per number
 
-ONES
-ADD R2,R2,#1
+        LDR     R0, [R6]            ; Load number into R0
 
-REPEAT
-SUBS R1,R1,#1
-BNE NEXTBIT
+NEXTBIT MOVS    R0, R0, ROR #1      ; Rotate right, bit0 -> Carry
 
-ADD R6,R6,#4
-SUBS R7,R7,#1
-BNE LOOP
+        BCS     ONES                ; If Carry = 1
 
-STOP B STOP
+ZEROS   ADD     R3, R3, #1          ; Increment zero count
+        B       REPEAT
 
-LOOKUP DCD 0X5,0X7
+ONES    ADD     R2, R2, #1          ; Increment one count
 
-END
+REPEAT  SUBS    R1, R1, #1          ; Decrement bit counter
+        BNE     NEXTBIT
+
+        ADD     R6, R6, #4          ; Point to next number
+
+        SUBS    R7, R7, #1          ; Decrement number counter
+        BNE     LOOP
+
+STOP    B       STOP
+
+LOOKUP  DCD     0x5, 0x7
+
+        END
